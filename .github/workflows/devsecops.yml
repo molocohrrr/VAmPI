@@ -1,0 +1,52 @@
+name: devsecops
+on:
+    push:
+        branches: [ "master" ]
+    pull_request:
+        branches: [ "master" ]
+    workflow_dispatch:
+        inputs:
+            scan: 
+                type: choice
+                options:
+                - gitleaks
+                - all
+            gitleaks-notify-user-list:
+                description: 'List of GitHub accounts that should be alerted when gitleaks-action detects a leak'
+                required: false
+                type: string
+            gitleaks-enable-comments:
+                description: 'Boolean value that turns on or off PR commenting'
+                required: false
+                type: string
+            gitleaks-config:
+                description: 'Path to a gitleaks configuration file'
+                required: false
+                type: string
+            gitleaks-enable-upload-artifact:
+                description: 'Boolean value that turns on or off uploading a sarif artifact when gitleaks detects secrets'
+                required: false
+                type: string
+            gitleaks-enable-summary:
+                description: 'Boolean value to enable or disable gitleaks job summary'
+                required: false
+                type: string
+            gitleaks-version:
+                description: 'A particular Gitleaks version to use (e.g. 8.15.3, no v prefix) or use latest to always use the newest available version'
+                required: false
+                type: string
+
+jobs:
+    gitleaks:
+        if: (github.events.choice == 'gitleaks' || github.events.choice == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
+        uses: ./.github/workflows/gitleaks.yml
+        with:
+            gitleaks-notify-user-list: ${{ github.event.inputs.gitleaks-notify-user-list }}
+            gitleaks-enable-comments: ${{ github.event.inputs.gitleaks-enable-comments }}
+            gitleaks-config: ${{ github.event.inputs.gitleaks-config }}
+            gitleaks-enable-upload-artifact: ${{ github.event.inputs.gitleaks-enable-upload-artifact }}
+            gitleaks-enable-summary: ${{ github.event.inputs.gitleaks-enable-summary }}
+            gitleaks-version: ${{ github.event.inputs.gitleaks-version }}
+        secrets:
+            token: ${{ secrets.GITHUB_TOKEN }}
+    
