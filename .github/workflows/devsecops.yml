@@ -50,6 +50,7 @@ on:
 
 jobs:
     build:
+        needs: secrets
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3	
