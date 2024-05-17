@@ -11,6 +11,8 @@ on:
                 options:
                 - gitleaks
                 - safety
+                - bandit
+                - zap
                 - all
             gitleaks-config:
                 description: 'Path to a gitleaks configuration file'
@@ -93,4 +95,8 @@ jobs:
             bandit-path: ${{ github.event.inputs.bandit-path || '.' }}
             bandit-level: ${{ github.event.inputs.bandit-level || 'UNDEFINED' }}
             bandit-confidence: ${{ github.event.inputs.bandit-confidence || 'UNDEFINED' }}
+    dast:
+        needs: build
+        uses: ./.github/workflows/zap.yml
+
     

@@ -1,0 +1,38 @@
+name: Zap
+
+on:
+    workflow_call:
+    workflow_dispatch:
+        inputs:
+            target:
+                type: string
+                description: 'Scan the target URL'
+                required: true
+    
+jobs:
+    zap:
+        if: ${{ github.event_name == 'workflow_call' }}
+        services:
+            vampi:
+                image: ghcr.io/ghcr.io/molocohrrr/vampi:ci
+                credentials:
+                    username: ${{ github.repository_owner }}
+                    password: ${{ secrets.GITHUB_TOKEN }}
+                ports:
+                    - 5000:5000
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Zap Baseline
+              uses: zaproxy/action-baseline@f00f834c0f443c58e7edd33d973f33305370dacf
+              with:
+                target: http://vampi:5000
+    zap_scan:
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Zap Scan
+              uses: zaproxy/action-scan@f00f834c0f443c58e7edd33d973f33305370dacf
+              with:
+                target: ${{ github.event.inputs.target }}
