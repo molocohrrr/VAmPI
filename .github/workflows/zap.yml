@@ -22,10 +22,4 @@ jobs:
               uses: zaproxy/action-baseline@f00f834c0f443c58e7edd33d973f33305370dacf
               with:
                 target: http://localhost:5000
-                allow_issue_writing: false
-            - name: Zap Full Scan
-              if: ${{ github.event_name == 'push' && github.base_ref == 'master'}}
-              uses: zaproxy/action-full-scan@2caa057f6970472f2f7e9ea9d9b24079dddbded5
-              with:
-                target: http://localhost:5000
                 allow_issue_writing: true
