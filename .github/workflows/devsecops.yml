@@ -42,10 +42,10 @@ jobs:
         uses: ./.github/workflows/gitleaks.yml
         with:
             gitleaks-notify-user-list: ${{ github.event.inputs.gitleaks-notify-user-list }}
-            gitleaks-enable-comments: ${{ github.event.inputs.gitleaks-enable-comments }}
+            gitleaks-enable-comments: ${{ github.event.inputs.gitleaks-enable-comments || 'true' }}
             gitleaks-config: ${{ github.event.inputs.gitleaks-config }}
             gitleaks-enable-upload-artifact: ${{ github.event.inputs.gitleaks-enable-upload-artifact }}
-            gitleaks-enable-summary: ${{ github.event.inputs.gitleaks-enable-summary }}
+            gitleaks-enable-summary: ${{ github.event.inputs.gitleaks-enable-summary || 'true' }}
             gitleaks-version: ${{ github.event.inputs.gitleaks-version }}
         secrets:
             token: ${{ secrets.GITHUB_TOKEN }}
