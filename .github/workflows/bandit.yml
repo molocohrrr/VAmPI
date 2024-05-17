@@ -36,7 +36,7 @@ on:
         type: string
       
     secrets:
-      GITHUB_TOKEN:
+      token:
         description: 'Token to access the repository'
         required: true
       
@@ -54,7 +54,7 @@ jobs:
         uses: shundor/python-bandit-scan@9cc5aa4a006482b8a7f91134412df6772dbda22c
         with: 
           exit_zero: ${{ github.event.inputs.bandit-exit-zero }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.token }}
           path: ${{ github.event.inputs.bandit-path }}
           level: ${{ github.event.inputs.bandit-level }}
           confidence: ${{ github.event.inputs.bandit-confidence }}
