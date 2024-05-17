@@ -68,7 +68,7 @@ jobs:
         secrets:
             token: ${{ secrets.GITHUB_TOKEN }}
         with:
-            bandit-exit-zero: ${{ github.event.inputs.bandit-exit-zero || 'true' }}
+            bandit-exit-zero: ${{ github.event.inputs.bandit-exit-zero || true }}
             bandit-path: ${{ github.event.inputs.bandit-path || '.' }}
             bandit-level: ${{ github.event.inputs.bandit-level || 'UNDEFINED' }}
             bandit-confidence: ${{ github.event.inputs.bandit-confidence || 'UNDEFINED' }}
