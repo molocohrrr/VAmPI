@@ -45,7 +45,7 @@ jobs:
             - uses: actions/checkout@v4
               with:
                 fetch-depth: 0
-            - uses: gitleaks/gitleaks-action@e6dab246340401bf53eec993b8f05aebe80ac636
+            - uses: grisolfi/gitleaks-action@40bddf0698b541e3482136c8c226f817d76c2432
               env:
                 GITHUB_TOKEN: ${{ secrets.token }}
                 GITLEAKS_LICENSE: ${{ secrets.gitleaks-license }}
