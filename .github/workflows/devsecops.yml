@@ -72,7 +72,7 @@ jobs:
                     ghcr.io/molocohrrr/vampi:ci
 
     secrets:
-        if: (github.events.choice == 'gitleaks' || github.events.choice == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
+        if: (github.event.inputs.scan == 'gitleaks' || github.event.inputs.scan == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
         uses: ./.github/workflows/gitleaks.yml
         with:
             gitleaks-config: ${{ github.event.inputs.gitleaks-config }}
@@ -80,14 +80,14 @@ jobs:
         secrets:
             token: ${{ secrets.GITHUB_TOKEN }}
     sca:
-        if: (github.events.choice == 'safety' || github.events.choice == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
+        if: (github.event.inputs.scan == 'safety' || github.event.inputs.scan == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
         uses: ./.github/workflows/safety.yml
         with:
-            args: ${{ github.event.inputs.args }}
+            args: ${{ github.event.inputs.safety-args }}
         secrets:
             api-key: ${{ secrets.SAFETY_API_KEY }}
     sast:
-        if: (github.events.choice == 'bandit' || github.events.choice == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
+        if: (github.event.inputs.scan == 'bandit' || github.event.inputs.scan == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
         uses: ./.github/workflows/bandit.yml
         secrets:
             token: ${{ secrets.GITHUB_TOKEN }}
