@@ -17,9 +17,9 @@ jobs:
     safety:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - name: Safety Scan
-              uses: pyupio/safety-action@v1
+              uses: pyupio/safety-action@d3575b14a5cf597e34d5f7c420d2d5b4a84df410
               with:
                 api-key: ${{ secrets.api-key }}
                 args: ${{ github.event.inputs.args }}
