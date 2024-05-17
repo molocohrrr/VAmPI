@@ -21,5 +21,5 @@ jobs:
             - name: Safety Scan
               uses: pyupio/safety-action@v1
               with:
-                api-key: ${{ github.event.inputs.api-key }}
+                api-key: ${{ secrets.api-key }}
                 args: ${{ github.event.inputs.args }}
