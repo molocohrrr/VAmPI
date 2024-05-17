@@ -62,4 +62,9 @@ jobs:
             args: ${{ github.event.inputs.args }}
         secrets:
             api-key: ${{ secrets.SAFETY_API_KEY }}
+    sast:
+        if: (github.events.choice == 'bandit' || github.events.choice == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
+        uses: ./.github/workflows/bandit.yml
+        secrets:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
