@@ -36,9 +36,14 @@ on:
                 description: 'A particular Gitleaks version to use (e.g. 8.15.3, no v prefix) or use latest to always use the newest available version'
                 required: false
                 type: string
+            safety-args:
+                description: 'Any additional arguments to pass to Safety'
+                required: false
+                default: ''
+                type: string
 
 jobs:
-    gitleaks:
+    secrets:
         if: (github.events.choice == 'gitleaks' || github.events.choice == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
         uses: ./.github/workflows/gitleaks.yml
         with:
@@ -50,7 +55,7 @@ jobs:
             gitleaks-version: ${{ github.event.inputs.gitleaks-version }}
         secrets:
             token: ${{ secrets.GITHUB_TOKEN }}
-    safety:
+    sca:
         if: (github.events.choice == 'safety' || github.events.choice == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
         uses: ./.github/workflows/safety.yml
         with:
