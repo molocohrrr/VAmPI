@@ -22,14 +22,6 @@ on:
         required: false
         type: string
         default: 'UNDEFINED'
-      bandit-skips:
-        description: 'Comma-separated list of test IDs to skip'
-        required: false
-        type: string
-      bandit-ini-path:
-        description: 'Path to a .bandit file that supplies command line arguments'
-        required: false
-        type: string
       
     secrets:
       token:
@@ -54,6 +46,4 @@ jobs:
           path: ${{ github.event.inputs.bandit-path }}
           level: ${{ github.event.inputs.bandit-level }}
           confidence: ${{ github.event.inputs.bandit-confidence }}
-          skips: ${{ github.event.inputs.bandit-skips }}
-          ini_path: ${{ github.event.inputs.bandit-ini-path }}
 
