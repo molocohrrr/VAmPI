@@ -41,9 +41,9 @@ jobs:
       - name: Bandit Scan
         uses: shundor/python-bandit-scan@9cc5aa4a006482b8a7f91134412df6772dbda22c
         with: 
-          exit_zero: ${{ github.event.inputs.bandit-exit-zero }}
+          exit_zero: ${{ github.event.inputs.bandit-exit-zero || true }}
           GITHUB_TOKEN: ${{ secrets.token }}
-          path: ${{ github.event.inputs.bandit-path }}
-          level: ${{ github.event.inputs.bandit-level }}
-          confidence: ${{ github.event.inputs.bandit-confidence }}
+          path: ${{ github.event.inputs.bandit-path || '.'}}
+          level: ${{ github.event.inputs.bandit-level || 'UNDEFINED'}}
+          confidence: ${{ github.event.inputs.bandit-confidence || 'UNDEFINED'}}
 
