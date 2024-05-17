@@ -19,7 +19,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Zap Baseline
-              uses: grisolfi/action-baseline@141ae0a3343b2fe4109b46385229e4edc07a9e35
+              uses: zaproxy/action-baseline@f00f834c0f443c58e7edd33d973f33305370dacf
               with:
                 target: http://localhost:5000
                 allow_issue_writing: false
