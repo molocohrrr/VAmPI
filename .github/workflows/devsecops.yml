@@ -12,24 +12,8 @@ on:
                 - gitleaks
                 - safety
                 - all
-            gitleaks-notify-user-list:
-                description: 'List of GitHub accounts that should be alerted when gitleaks-action detects a leak'
-                required: false
-                type: string
-            gitleaks-enable-comments:
-                description: 'Boolean value that turns on or off PR commenting'
-                required: false
-                type: string
             gitleaks-config:
                 description: 'Path to a gitleaks configuration file'
-                required: false
-                type: string
-            gitleaks-enable-upload-artifact:
-                description: 'Boolean value that turns on or off uploading a sarif artifact when gitleaks detects secrets'
-                required: false
-                type: string
-            gitleaks-enable-summary:
-                description: 'Boolean value to enable or disable gitleaks job summary'
                 required: false
                 type: string
             gitleaks-version:
@@ -61,29 +45,13 @@ on:
                 required: false
                 type: string
                 default: 'UNDEFINED'
-            bandit-excluded-paths:
-                description: 'Comma-separated list of paths to exclude from scan'
-                required: false
-                type: string
-            bandit-skips:
-                description: 'Comma-separated list of test IDs to skip'
-                required: false
-                type: string
-            bandit-ini-path:
-                description: 'Path to a .bandit file that supplies command line arguments'
-                required: false
-                type: string
 
 jobs:
     secrets:
         if: (github.events.choice == 'gitleaks' || github.events.choice == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
         uses: ./.github/workflows/gitleaks.yml
         with:
-            gitleaks-notify-user-list: ${{ github.event.inputs.gitleaks-notify-user-list }}
-            gitleaks-enable-comments: ${{ github.event.inputs.gitleaks-enable-comments || 'true' }}
             gitleaks-config: ${{ github.event.inputs.gitleaks-config }}
-            gitleaks-enable-upload-artifact: ${{ github.event.inputs.gitleaks-enable-upload-artifact }}
-            gitleaks-enable-summary: ${{ github.event.inputs.gitleaks-enable-summary || 'true' }}
             gitleaks-version: ${{ github.event.inputs.gitleaks-version }}
         secrets:
             token: ${{ secrets.GITHUB_TOKEN }}
@@ -104,7 +72,4 @@ jobs:
             bandit-path: ${{ github.event.inputs.bandit-path || '.' }}
             bandit-level: ${{ github.event.inputs.bandit-level || 'UNDEFINED' }}
             bandit-confidence: ${{ github.event.inputs.bandit-confidence || 'UNDEFINED' }}
-            bandit-excluded-paths: ${{ github.event.inputs.bandit-excluded-paths }}
-            bandit-skips: ${{ github.event.inputs.bandit-skips }}
-            bandit-ini-path: ${{ github.event.inputs.bandit-ini-path }}
     
