@@ -10,6 +10,7 @@ on:
                 type: choice
                 options:
                 - gitleaks
+                - safety
                 - all
             gitleaks-notify-user-list:
                 description: 'List of GitHub accounts that should be alerted when gitleaks-action detects a leak'
@@ -49,4 +50,11 @@ jobs:
             gitleaks-version: ${{ github.event.inputs.gitleaks-version }}
         secrets:
             token: ${{ secrets.GITHUB_TOKEN }}
+    safety:
+        if: (github.events.choice == 'safety' || github.events.choice == 'all' ) || github.event_name == 'push' || github.event_name == 'pull_request'
+        uses: ./.github/workflows/safety.yml
+        with:
+            args: ${{ github.event.inputs.args }}
+        secrets:
+            api-key: ${{ secrets.SAFETY_API_KEY }}
     

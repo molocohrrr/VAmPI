@@ -1,0 +1,25 @@
+name: Safety
+
+on: 
+    workflow_call:
+        inputs:
+            args:
+                description: 'Any additional arguments to pass to Safety'
+                required: false
+                default: ''
+                type: string
+        secrets:
+            api-key:
+                description: 'Safety CLI API key'
+                required: true
+
+jobs:
+    safety:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Safety Scan
+              uses: pyupio/safety-action@v1
+              with:
+                api-key: ${{ github.event.inputs.api-key }}
+                args: ${{ github.event.inputs.args }}
