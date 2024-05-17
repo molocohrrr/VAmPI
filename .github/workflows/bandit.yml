@@ -22,11 +22,6 @@ on:
         required: false
         type: string
         default: 'UNDEFINED'
-      bandit-excluded-paths:
-        description: 'Comma-separated list of paths to exclude from scan'
-        required: false
-        type: string
-        default: '.svn,CVS,.bzr,.hg,.git,__pycache__,.tox,.eggs,*.egg'
       bandit-skips:
         description: 'Comma-separated list of test IDs to skip'
         required: false
@@ -59,7 +54,6 @@ jobs:
           path: ${{ github.event.inputs.bandit-path }}
           level: ${{ github.event.inputs.bandit-level }}
           confidence: ${{ github.event.inputs.bandit-confidence }}
-          excluded_paths: ${{ github.event.inputs.bandit-excluded-paths }}
           skips: ${{ github.event.inputs.bandit-skips }}
           ini_path: ${{ github.event.inputs.bandit-ini-path }}
 
