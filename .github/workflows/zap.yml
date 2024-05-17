@@ -15,8 +15,7 @@ jobs:
                     - 5000:5000
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
             - name: Zap Baseline
               uses: zaproxy/action-baseline@f00f834c0f443c58e7edd33d973f33305370dacf
               with:
-                target: http://vampi:5000
+                target: http://localhost:5000
