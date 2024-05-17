@@ -41,6 +41,38 @@ on:
                 required: false
                 default: ''
                 type: string
+            bandit-exit-zero:
+                description: 'Exit with 0 even if issues are found'
+                required: false
+                type: boolean
+                default: true
+            bandit-path:
+                description: 'Path to the directory to scan'
+                required: false
+                type: string
+                default: '.'
+            bandit-level:
+                description: 'Report only issues of a given severity level or higher'
+                required: false
+                type: string
+                default: 'UNDEFINED'
+            bandit-confidence:
+                description: 'Report only issues of a given confidence level or higher'
+                required: false
+                type: string
+                default: 'UNDEFINED'
+            bandit-excluded-paths:
+                description: 'Comma-separated list of paths to exclude from scan'
+                required: false
+                type: string
+            bandit-skips:
+                description: 'Comma-separated list of test IDs to skip'
+                required: false
+                type: string
+            bandit-ini-path:
+                description: 'Path to a .bandit file that supplies command line arguments'
+                required: false
+                type: string
 
 jobs:
     secrets:
@@ -67,4 +99,12 @@ jobs:
         uses: ./.github/workflows/bandit.yml
         secrets:
             token: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            bandit-exit-zero: ${{ github.event.inputs.bandit-exit-zero || 'true' }}
+            bandit-path: ${{ github.event.inputs.bandit-path || '.' }}
+            bandit-level: ${{ github.event.inputs.bandit-level || 'UNDEFINED' }}
+            bandit-confidence: ${{ github.event.inputs.bandit-confidence || 'UNDEFINED' }}
+            bandit-excluded-paths: ${{ github.event.inputs.bandit-excluded-paths }}
+            bandit-skips: ${{ github.event.inputs.bandit-skips }}
+            bandit-ini-path: ${{ github.event.inputs.bandit-ini-path }}
     
