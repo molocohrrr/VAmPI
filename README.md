@@ -1,5 +1,6 @@
 # VAmPI
 **The Vulnerable API** *(Based on OpenAPI 3)*
+
 ![vampi](https://i.imgur.com/zR0quKf.jpg)
 
 [![Docker Image CI](https://github.com/erev0s/VAmPI/actions/workflows/docker-image.yml/badge.svg)](https://github.com/erev0s/VAmPI/actions/workflows/docker-image.yml) ![Docker Pulls](https://img.shields.io/docker/pulls/erev0s/vampi)
